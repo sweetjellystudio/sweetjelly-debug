@@ -1,0 +1,14 @@
+{
+    "name": "SWeetJelly.Debug.Contract",
+    "rootNamespace": "SWeetJelly.Debug.Contract",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

@@ -1,0 +1,17 @@
+{
+    "name": "SWeetJelly.Debug.Framework",
+    "rootNamespace": "SWeetJelly.Debug.Framework",
+    "references": [
+        "SWeetJelly.Debug.Contract",
+        "SWeetJelly.Debug.App"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
