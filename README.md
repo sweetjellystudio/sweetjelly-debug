@@ -31,8 +31,8 @@ Runtime
 ├── Framework
 │   ├── UnityConsoleDebugger
 │   └── UnityUIDebugger
-└── InitialiserIntegration
-    └── DebugInitModule
+└── Framework/Bootstrapper
+    └── DebugPackageBootstrapperSo
 ```
 
 ## Concepts
@@ -45,9 +45,9 @@ Runtime
 
 `IDebugFormatter` converts a `DebugEntry` into a readable message. The default implementation is `DebugFormat`.
 
-## Initialiser Integration
+## Bootstrapper Integration
 
-Add `DebugInitModule` to the SWeetJelly Initialiser module list.
+Add `DebugPackageBootstrapperSo` to the SWeetJelly Bootstrapper module list.
 
 The module creates a `DebugService`, registers a `UnityConsoleDebugger`, sets it as the `SWJDebug` service, and registers `IDebugService` in the service registry.
 
@@ -64,7 +64,7 @@ You can also configure the service manually.
 ```csharp
 using SWeetJelly.Debug.App;
 using SWeetJelly.Debug.Contract;
-using SWeetJelly.Debug.Framework;
+using SWeetJelly.Debug.Framework.Unity;
 
 var service = new DebugService();
 service.MinimumLevel = DebugLevel.Trace;
@@ -77,7 +77,7 @@ For the previous simple setup style, `SWJDebug.Set(IDebugger)` is still availabl
 
 ```csharp
 using SWeetJelly.Debug.App;
-using SWeetJelly.Debug.Framework;
+using SWeetJelly.Debug.Framework.Unity;
 
 SWJDebug.Set(new UnityConsoleDebugger());
 ```

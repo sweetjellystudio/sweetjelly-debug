@@ -1,12 +1,12 @@
 {
-    "name": "SWeetJelly.Debug.InitialiserIntegration",
-    "rootNamespace": "SWeetJelly.Debug.InitialiserIntegration",
+    "name": "SWeetJelly.Debug.Sample",
+    "rootNamespace": "SWeetJelly.Samples.Debug",
     "references": [
-        "SWeetJelly.Debug.Contract",
         "SWeetJelly.Debug.App",
-        "SWeetJelly.Debug.Framework",
-        "SWeetJelly.Initialiser.Contract",
-        "SWeetJelly.Initialiser.Framework"
+        "SWeetJelly.Debug.Contract",
+        "SWeetJelly.Debug.Framework.Unity",
+        "SWeetJelly.Bootstrapper.Framework.Unity",
+        "SWeetJelly.Bootstrapper.Contract"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

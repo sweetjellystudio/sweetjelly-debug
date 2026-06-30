@@ -1,4 +1,4 @@
-namespace SWeetJelly.Debug.Framework
+namespace SWeetJelly.Debug.Framework.Unity
 {
     using System.Collections.Generic;
     using SWeetJelly.Debug.Contract;

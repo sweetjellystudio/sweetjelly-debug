@@ -1,6 +1,6 @@
 {
-    "name": "SWeetJelly.Debug.Framework",
-    "rootNamespace": "SWeetJelly.Debug.Framework",
+    "name": "SWeetJelly.Debug.Framework.Unity",
+    "rootNamespace": "SWeetJelly.Debug.Framework.Unity",
     "references": [
         "SWeetJelly.Debug.Contract",
         "SWeetJelly.Debug.App"
