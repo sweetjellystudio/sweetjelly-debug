@@ -1,0 +1,30 @@
+﻿{
+    "name":  "SWeetJelly.Debug.Framework.Bootstrapper",
+    "rootNamespace":  "SWeetJelly.Debug.Framework.Bootstrapper",
+    "references":  [
+                       "SWeetJelly.Bootstrapper.Contract",
+                       "SWeetJelly.Bootstrapper.Framework.Unity",
+                       "SWeetJelly.Debug.Contract",
+                       "SWeetJelly.Debug.App",
+                       "SWeetJelly.Debug.Framework.Unity"
+                   ],
+    "includePlatforms":  [
+
+                         ],
+    "excludePlatforms":  [
+
+                         ],
+    "allowUnsafeCode":  false,
+    "overrideReferences":  false,
+    "precompiledReferences":  [
+
+                              ],
+    "autoReferenced":  true,
+    "defineConstraints":  [
+
+                          ],
+    "versionDefines":  [
+
+                       ],
+    "noEngineReferences":  false
+}

@@ -31,8 +31,8 @@ Runtime
   Framework
     UnityConsoleDebugger
     UnityUIDebugger
-  InitialiserIntegration
-    DebugInitModule
+  Framework/Bootstrapper
+    DebugPackageBootstrapperSo
 ```
 
 ## 개념
@@ -45,9 +45,9 @@ Runtime
 
 `IDebugFormatter`는 `DebugEntry`를 읽기 쉬운 메시지로 변환합니다. 기본 구현은 `DebugFormat`입니다.
 
-## Initialiser 연동
+## Bootstrapper 연동
 
-SWeetJelly Initialiser 모듈 목록에 `DebugInitModule`을 추가합니다.
+SWeetJelly Bootstrapper 모듈 목록에 `DebugPackageBootstrapperSo`을 추가합니다.
 
 이 모듈은 `DebugService`를 만들고, `UnityConsoleDebugger`를 등록하고, 이를 `SWJDebug` 서비스로 설정한 뒤 `IDebugService`를 서비스 레지스트리에 등록합니다.
 
@@ -64,7 +64,7 @@ SWJDebug.Log("Debug", "Ready");
 ```csharp
 using SWeetJelly.Debug.App;
 using SWeetJelly.Debug.Contract;
-using SWeetJelly.Debug.Framework;
+using SWeetJelly.Debug.Framework.Unity;
 
 var service = new DebugService();
 service.MinimumLevel = DebugLevel.Trace;
@@ -77,7 +77,7 @@ SWJDebug.SetService(service);
 
 ```csharp
 using SWeetJelly.Debug.App;
-using SWeetJelly.Debug.Framework;
+using SWeetJelly.Debug.Framework.Unity;
 
 SWJDebug.Set(new UnityConsoleDebugger());
 ```

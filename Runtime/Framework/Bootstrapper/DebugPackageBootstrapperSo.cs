@@ -1,23 +1,20 @@
-namespace SWeetJelly.Debug.InitialiserIntegration
+﻿namespace SWeetJelly.Debug.Framework.Bootstrapper
 {
     using SWeetJelly.Debug.App;
     using SWeetJelly.Debug.Contract;
-    using SWeetJelly.Debug.Framework;
-    using SWeetJelly.Initialiser.Contract;
-    using SWeetJelly.Initialiser.Framework;
+    using SWeetJelly.Debug.Framework.Unity;
+    using SWeetJelly.Bootstrapper.Framework.Unity;
     using UnityEngine;
-
-    [RegisterModule("Debug")]
     [CreateAssetMenu(
-        fileName = "Debug Init Module",
-        menuName = "SWeetJelly/Initialiser/Modules/Debug")]
-    public sealed class DebugInitModule : InitModuleSo
+        fileName = "Debug Package Bootstrapper",
+        menuName = "SWeetJelly/Bootstrapper/Packages/Debug")]
+    public sealed class DebugPackageBootstrapperSo : PackageBootstrapperSo
     {
         private DebugService service;
 
-        public override string ModuleName => "Debug";
+        public override string PackageName => "Debug";
 
-        public override void Install(InitModuleInstallContext context)
+        public override void Bootstrap(PackageBootstrapContext context)
         {
             if (context == null)
                 throw new System.ArgumentNullException(nameof(context));
@@ -29,7 +26,7 @@ namespace SWeetJelly.Debug.InitialiserIntegration
             context.Services.Register<IDebugService>(service);
         }
 
-        public override void Uninstall(InitModuleInstallContext context)
+        public override void Shutdown(PackageBootstrapContext context)
         {
             SWJDebug.SetService(null);
 
