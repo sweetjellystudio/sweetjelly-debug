@@ -1,24 +1,24 @@
-﻿{
-    "name":  "com.sweetjelly.debug",
-    "version":  "1.0.0",
-    "displayName":  "SWeetJelly Debug",
-    "description":  "Debug service, formatter, and Unity debug outputs for SWeetJelly packages.",
-    "unity":  "2022.3",
-    "dependencies":  {
-                         "com.sweetjelly.bootstrapper":  "1.0.0",
-                         "com.unity.ugui":  "1.0.0"
-                     },
-    "author":  {
-                   "name":  "SWeetJellyStudio",
-                   "email":  "sweetjellystudio@gmail.com",
-                   "url":  "https://www.sweetjellystudio.com"
-               },
-    "samples":  [
-                    {
-                        "displayName":  "Debug Sample",
-                        "description":  "Sample scene and assets for Debug Sample.",
-                        "path":  "Samples~/Basic"
-                    }
-                ],
-    "license":  "MIT"
+{
+    "name": "com.sweetjelly.debug",
+    "version": "2.0.0",
+    "displayName": "SWeetJelly Debug",
+    "description": "Debug service, formatter, and Unity debug outputs for SWeetJelly packages.",
+    "unity": "6000.3",
+    "dependencies": {
+        "com.sweetjelly.bootstrapper": "2.0.0",
+        "com.unity.ugui": "2.0.0"
+    },
+    "author": {
+        "name": "SWeetJellyStudio",
+        "email": "sweetjellystudio@gmail.com",
+        "url": "https://www.sweetjellystudio.com"
+    },
+    "samples": [
+        {
+            "displayName": "Debug Sample",
+            "description": "Sample scene and assets for Debug Sample.",
+            "path": "Samples~/Basic"
+        }
+    ],
+    "license": "MIT"
 }

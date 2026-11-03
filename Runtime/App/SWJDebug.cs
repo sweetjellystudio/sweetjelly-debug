@@ -23,7 +23,7 @@ namespace SWeetJelly.Debug.App
             if (debugger == null)
                 return;
 
-            var debugService = service as DebugService ?? new DebugService();
+            var debugService = service ?? new DebugService();
             debugService.ClearDebuggers();
             debugService.AddDebugger(debugger);
             service = debugService;

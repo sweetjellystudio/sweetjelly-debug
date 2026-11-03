@@ -1,0 +1,20 @@
+{
+    "name": "SWeetJelly.Debug.Tests.PlayMode",
+    "rootNamespace": "SWeetJelly.Debug.Tests.PlayMode",
+    "references": [
+        "SWeetJelly.Debug.Contract",
+        "SWeetJelly.Debug.Framework.Unity"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "noEngineReferences": false
+}

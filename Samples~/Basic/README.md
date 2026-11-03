@@ -1,14 +1,5 @@
-# Debug Dev Sample
+#   Debug sample
 
-This sample shows the consumer-side flow for `com.sweetjelly.debug`.
+Import through Package Manager, open Sample Scene and enter Play Mode. The profile installs the Debug service and its Console output. Buttons exercise severity, Trace caller labels, exceptions and Enabled filtering.
 
-- `Debug Package Bootstrapper.asset` installs the package `DebugPackageBootstrapperSo`.
-- `Sample Package Bootstrapper Profile.asset` is assigned to `BootstrapperBehaviour` in the sample scene.
-- `DebugSampleConsumerBehaviour` resolves `IDebugService` and emits logs through `SWJDebug`.
-- `DebugUIDebuggerInstallerBehaviour` lets the sample switch between `UnityConsoleDebugger` and `UnityUIDebugger`.
-
-## Setup
-
-Open `Sample Scene` and enter Play Mode.
-
-Use the on-screen buttons to emit info, warning, error, trace, and exception logs. The Debug package starts with its default console debugger, and the sample GUI can switch the registered debugger between Unity Console output and Unity UI text output at runtime.
+Add UI Output retains Console and registers one optional UnityUIDebugger. Remove UI Output releases only that target. The sample applies maxLines to the target, uses the current built-in runtime font and destroys only generated UI; borrowed profile Canvas/Text survive. Disable/re-enable demonstrates subscription cleanup and reattachment. The sample screen remains consumer code, while UnityUIDebugger is the package's supported output implementation.

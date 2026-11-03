@@ -22,21 +22,37 @@ namespace SWeetJelly.Debug.Framework.Unity
             while (lines.Count > maxLines)
                 lines.Dequeue();
 
-            if (output != null)
-                output.text = string.Join("\n", lines);
+            Render();
         }
 
         public void SetOutput(Text text)
         {
             output = text;
+            Render();
+        }
+
+        public void SetMaxLines(int value)
+        {
+            maxLines = value > 0 ? value : 1;
+            while (lines.Count > maxLines) lines.Dequeue();
+            Render();
         }
 
         public void Clear()
         {
             lines.Clear();
 
-            if (output != null)
-                output.text = string.Empty;
+            Render();
+        }
+
+        private void Render()
+        {
+            if (output != null) output.text = string.Join("\n", lines);
+        }
+
+        private void OnValidate()
+        {
+            if (maxLines <= 0) maxLines = 1;
         }
     }
 }

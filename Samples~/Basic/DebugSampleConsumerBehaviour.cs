@@ -21,6 +21,7 @@ namespace SWeetJelly.Samples.Debug
         private void OnDisable()
         {
             BootstrapperBehaviour.Bootstrapped -= OnBootstrapped;
+            debugService = null;
         }
 
         private void OnBootstrapped(object sender, EventArgs args)
@@ -40,7 +41,6 @@ namespace SWeetJelly.Samples.Debug
                 return;
             }
 
-            debugService.MinimumLevel = DebugLevel.Trace;
             status = "Debug service is ready.";
             SWJDebug.Log("Debug Sample", status);
             SWJDebug.TraceLog("Initial trace from sample.");
