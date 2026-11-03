@@ -15,7 +15,9 @@ namespace SWeetJelly.Samples.Debug
         [SerializeField] private int maxLines = 12;
 
         private IDebugService debugService;
-        private UnityConsoleDebugger consoleDebugger;
+        private GameObject ownedOutput;
+        private Canvas ownedCanvas;
+        private bool useUI;
         private UnityUIDebugger uiDebugger;
         private string debuggerMode = "Console Debugger (default)";
 
@@ -28,6 +30,7 @@ namespace SWeetJelly.Samples.Debug
         private void OnDisable()
         {
             BootstrapperBehaviour.Bootstrapped -= OnBootstrapped;
+            Detach();
         }
 
         private void OnBootstrapped(object sender, EventArgs args)
@@ -37,13 +40,16 @@ namespace SWeetJelly.Samples.Debug
 
         private void ResolveIfReady()
         {
-            if (debugService != null || !BootstrapperBehaviour.IsBootstrapped || BootstrapperBehaviour.Services == null)
+            if (!BootstrapperBehaviour.IsBootstrapped || BootstrapperBehaviour.Services == null)
                 return;
 
-            if (!BootstrapperBehaviour.Services.TryResolve<IDebugService>(out debugService))
+            if (!BootstrapperBehaviour.Services.TryResolve<IDebugService>(out var resolved))
                 return;
 
-            consoleDebugger = new UnityConsoleDebugger();
+            if (ReferenceEquals(debugService, resolved)) return;
+            Detach();
+            debugService = resolved;
+            if (useUI) AttachUI();
         }
 
         private void OnGUI()
@@ -56,12 +62,12 @@ namespace SWeetJelly.Samples.Debug
 
             GUI.enabled = debugService != null;
 
-            if (GUI.Button(new Rect(x, y, 180f, 28f), "Use Console Debugger"))
+            if (GUI.Button(new Rect(x, y, 180f, 28f), "Remove UI Output"))
                 UseConsoleDebugger();
 
             y += 34f;
 
-            if (GUI.Button(new Rect(x, y, 180f, 28f), "Use UI Debugger"))
+            if (GUI.Button(new Rect(x, y, 180f, 28f), "Add UI Output"))
                 UseUIDebugger();
 
             GUI.enabled = true;
@@ -69,32 +75,60 @@ namespace SWeetJelly.Samples.Debug
 
         private void UseConsoleDebugger()
         {
-            if (debugService == null)
-                return;
-
-            consoleDebugger = consoleDebugger ?? new UnityConsoleDebugger();
-
-            debugService.ClearDebuggers();
-            debugService.AddDebugger(consoleDebugger);
-
+            useUI = false;
+            RemoveUI();
             debuggerMode = "Console Debugger";
-            SWJDebug.Log("Debug Sample", "Switched to UnityConsoleDebugger.");
         }
 
         private void UseUIDebugger()
         {
-            if (debugService == null)
+            if (debugService == null) return;
+            useUI = true;
+            AttachUI();
+            debugService.Log(DebugLevel.Info, DebugLabelType.Grouping, "Debug Sample", "Added UI output; Console is retained.");
+        }
+
+        private void AttachUI()
+        {
+            if (uiDebugger != null)
+            {
+                uiDebugger.SetMaxLines(maxLines);
                 return;
-
+            }
             output = output != null ? output : CreateOutputText();
-            uiDebugger = uiDebugger != null ? uiDebugger : gameObject.AddComponent<UnityUIDebugger>();
+            uiDebugger = gameObject.AddComponent<UnityUIDebugger>();
             uiDebugger.SetOutput(output);
-
-            debugService.ClearDebuggers();
+            uiDebugger.SetMaxLines(maxLines);
             debugService.AddDebugger(uiDebugger);
+            debuggerMode = "Console + UI Debugger";
+        }
 
-            debuggerMode = "UI Debugger";
-            SWJDebug.Log("Debug Sample", "Switched to UnityUIDebugger.");
+        private void RemoveUI()
+        {
+            if (uiDebugger != null)
+            {
+                debugService?.RemoveDebugger(uiDebugger);
+                uiDebugger.Clear();
+                Destroy(uiDebugger);
+                uiDebugger = null;
+            }
+            if (ownedOutput != null)
+            {
+                Destroy(ownedOutput);
+                ownedOutput = null;
+                output = null;
+            }
+            if (ownedCanvas != null)
+            {
+                Destroy(ownedCanvas.gameObject);
+                ownedCanvas = null;
+            }
+        }
+
+        private void Detach()
+        {
+            RemoveUI();
+            debugService = null;
         }
 
         private Text CreateOutputText()
@@ -107,6 +141,7 @@ namespace SWeetJelly.Samples.Debug
                 : CreateCanvas();
 
             var outputObject = new GameObject("Debug UI Output");
+            ownedOutput = outputObject;
             outputObject.transform.SetParent(canvas.transform, false);
 
             var rect = outputObject.AddComponent<RectTransform>();
@@ -118,11 +153,12 @@ namespace SWeetJelly.Samples.Debug
 
             var text = outputObject.AddComponent<Text>();
             text.alignment = TextAnchor.LowerRight;
-            text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             text.fontSize = 14;
             text.horizontalOverflow = HorizontalWrapMode.Wrap;
             text.verticalOverflow = VerticalWrapMode.Truncate;
             text.color = Color.white;
+            text.raycastTarget = false;
 
             return text;
         }
@@ -131,6 +167,7 @@ namespace SWeetJelly.Samples.Debug
         {
             var canvasObject = new GameObject("Debug UI Canvas");
             var canvas = canvasObject.AddComponent<Canvas>();
+            ownedCanvas = canvas;
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvasObject.AddComponent<CanvasScaler>();
             canvasObject.AddComponent<GraphicRaycaster>();

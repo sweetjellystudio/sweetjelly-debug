@@ -9,6 +9,7 @@ namespace SWeetJelly.Debug.App
     public sealed class DebugService : IDebugService
     {
         private readonly List<IDebugger> debuggers = new List<IDebugger>();
+        private bool isPublishing;
 
         public DebugService()
             : this(new DebugFormat())
@@ -68,12 +69,19 @@ namespace SWeetJelly.Debug.App
             if (!Enabled || entry.Level < MinimumLevel)
                 return;
 
-            var formattedMessage = Formatter.Format(entry);
+            if (isPublishing)
+                throw new InvalidOperationException("Logging cannot reenter the same debug service.");
 
-            for (var i = 0; i < debuggers.Count; i++)
+            isPublishing = true;
+            try
             {
-                debuggers[i].Publish(entry, formattedMessage);
+                var targets = debuggers.ToArray();
+                var formattedMessage = Formatter.Format(entry);
+
+                for (var i = 0; i < targets.Length; i++)
+                    targets[i].Publish(entry, formattedMessage);
             }
+            finally { isPublishing = false; }
         }
     }
 }
